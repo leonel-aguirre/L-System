@@ -7,6 +7,27 @@
     <title>L-System</title>
   </head>
   <body>
-    <div id="Canvas"></div>
+    <div class="main-container">
+      <div class="grid-container">
+        <div class="config-panel">
+          <form>
+            <div class="input-wrapper">
+              <label for="lineLength">Line Length: </label>
+              <input
+                type="range"
+                name="lineLength"
+                id="lineLength"
+                step="1"
+                min="1"
+                max="30"
+                value="1"
+              />
+              <span id="lineLengthValue">1</span>
+            </div>
+          </form>
+        </div>
+        <div id="Canvas" class="canvas"></div>
+      </div>
+    </div>
   </body>
 </html>

@@ -11,6 +11,22 @@ import SierpinskiTriangle from "./data/SierpinskiTriangle"
 import SierpinskiTriangle2 from "./data/SierpinskiTriangle2"
 import Tiles from "./data/Tiles"
 
+const config = {
+  lineLength: 1,
+}
+
+const lineLengthValueText = document.querySelector("#lineLengthValue")
+const lineLengthInput = document.querySelector("#lineLength")
+
+lineLengthInput.addEventListener("change", ({ target }) => {
+  config.lineLength = target.value
+  updateUI()
+})
+
+const updateUI = () => {
+  lineLengthValueText.textContent = config.lineLength
+}
+
 /**
  * Displays a p5 sketch.
  *
@@ -26,6 +42,7 @@ const sketch = (p) => {
     let canvas = p.createCanvas(WIDTH, HEIGHT)
     canvas.parent("Canvas")
     p.translate(WIDTH / 2, HEIGHT / 2)
+    p.background("white")
 
     const { alphabet, initiator, rules, instructions } = Tiles
 
@@ -34,12 +51,16 @@ const sketch = (p) => {
     const lSystemIteration = 3
 
     console.log(lSystem.getIterationValue(lSystemIteration))
-
-    LSystem.drawLSystemPattern(p, lSystem, lSystemIteration)
   }
 
   // Draw loop.
-  p.draw = () => {}
+  p.draw = () => {
+    p.background("#FFF")
+
+    p.translate(WIDTH / 2, HEIGHT / 2)
+
+    LSystem.drawLSystemPattern(p, lSystem, 3, config)
+  }
 }
 
 new p5(sketch)
