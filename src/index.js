@@ -4,27 +4,61 @@ import p5 from "p5"
 
 import { WIDTH, HEIGHT } from "./constants"
 import LSystem from "./LSystem/LSystem"
-import FractalPlant1 from "./data/FractalPlant1"
-import FractalPlant2 from "./data/FractalPlant2"
-import DragonCurve from "./data/DragonCurve"
-import SierpinskiTriangle from "./data/SierpinskiTriangle"
-import SierpinskiTriangle2 from "./data/SierpinskiTriangle2"
-import Tiles from "./data/Tiles"
+import Data from "./data/map"
+
+const lSystemsSet = []
+
+for (const key in Data) {
+  if (Object.hasOwnProperty.call(Data, key)) {
+    lSystemsSet.push({ ...Data[key], name: key })
+  }
+}
 
 const config = {
   lineLength: 1,
+  currentLSystem: lSystemsSet[0],
 }
 
-const lineLengthValueText = document.querySelector("#lineLengthValue")
+const lineLengthValue = document.querySelector("#lineLengthValue")
 const lineLengthInput = document.querySelector("#lineLength")
+
+const currentLSystemSelect = document.querySelector("#currentLSystem")
+
+let lSystem
 
 lineLengthInput.addEventListener("change", ({ target }) => {
   config.lineLength = target.value
   updateUI()
 })
 
+currentLSystemSelect.addEventListener("change", ({ target }) => {
+  config.currentLSystem = lSystemsSet.find(
+    (lSystem) => lSystem.name === target.value
+  )
+
+  setCurrentLSystem()
+})
+
+const setCurrentLSystem = () => {
+  const { alphabet, initiator, rules, instructions } = config.currentLSystem
+
+  lSystem = new LSystem(alphabet, initiator, rules, instructions)
+}
+
 const updateUI = () => {
-  lineLengthValueText.textContent = config.lineLength
+  lineLengthValue.textContent = config.lineLength
+}
+
+const populateLSystemSelect = () => {
+  lSystemsSet.forEach((lSystem) => {
+    const { name } = lSystem
+
+    const newOption = document.createElement("option")
+    newOption.textContent = name
+    newOption.value = name
+
+    currentLSystemSelect.appendChild(newOption)
+  })
 }
 
 /**
@@ -35,8 +69,6 @@ const updateUI = () => {
 const sketch = (p) => {
   // Editable values.
 
-  let lSystem
-
   // Sketch setup.
   p.setup = () => {
     let canvas = p.createCanvas(WIDTH, HEIGHT)
@@ -44,13 +76,12 @@ const sketch = (p) => {
     p.translate(WIDTH / 2, HEIGHT / 2)
     p.background("white")
 
-    const { alphabet, initiator, rules, instructions } = Tiles
+    setCurrentLSystem()
+    populateLSystemSelect()
 
-    lSystem = new LSystem(alphabet, initiator, rules, instructions)
+    // const lSystemIteration = 3
 
-    const lSystemIteration = 3
-
-    console.log(lSystem.getIterationValue(lSystemIteration))
+    // console.log(lSystem.getIterationValue(lSystemIteration))
   }
 
   // Draw loop.

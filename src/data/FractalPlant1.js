@@ -19,9 +19,9 @@ export default {
   instructions: [
     {
       trigger: "F",
-      action: (p) => {
-        p.line(0, 0, 0, -LINE_LENGTH)
-        p.translate(0, -LINE_LENGTH)
+      action: (p, { lineLength }) => {
+        p.line(0, 0, 0, -lineLength)
+        p.translate(0, -lineLength)
       },
     },
     {
