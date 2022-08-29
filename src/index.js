@@ -15,19 +15,21 @@ for (const key in Data) {
 }
 
 const config = {
-  lineLength: 1,
+  lineLength: 10,
   currentLSystem: lSystemsSet[0],
 }
 
-const lineLengthValue = document.querySelector("#lineLengthValue")
 const lineLengthInput = document.querySelector("#lineLength")
-
 const currentLSystemSelect = document.querySelector("#currentLSystem")
+
+const lineLengthValue = document.querySelector("#lineLengthValue")
+const rawDataValue = document.querySelector("#lSystemRawData")
 
 let lSystem
 
 lineLengthInput.addEventListener("change", ({ target }) => {
   config.lineLength = target.value
+
   updateUI()
 })
 
@@ -37,6 +39,7 @@ currentLSystemSelect.addEventListener("change", ({ target }) => {
   )
 
   setCurrentLSystem()
+  updateUI()
 })
 
 const setCurrentLSystem = () => {
@@ -46,7 +49,16 @@ const setCurrentLSystem = () => {
 }
 
 const updateUI = () => {
+  const { alphabet, initiator, rules } = config.currentLSystem
+
   lineLengthValue.textContent = config.lineLength
+  lineLengthInput.value = config.lineLength
+
+  rawDataValue.textContent = JSON.stringify(
+    { alphabet, initiator, rules },
+    null,
+    2
+  )
 }
 
 const populateLSystemSelect = () => {
@@ -78,6 +90,7 @@ const sketch = (p) => {
 
     setCurrentLSystem()
     populateLSystemSelect()
+    updateUI()
 
     // const lSystemIteration = 3
 
