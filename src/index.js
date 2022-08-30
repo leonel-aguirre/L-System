@@ -30,6 +30,7 @@ const decreaseIterationsButton = document.querySelector("#decreaseIterations")
 const lineLengthValue = document.querySelector("#lineLengthValue")
 const rawDataValue = document.querySelector("#lSystemRawData")
 const iterationsValue = document.querySelector("#iterationsValue")
+const renderedString = document.querySelector("#lSystemRenderedString")
 
 let lSystem
 
@@ -84,6 +85,10 @@ const updateUI = () => {
     null,
     2
   )
+
+  renderedString.textContent = `"${lSystem.getIterationValue(
+    config.iterationsAmount
+  )}"`
 
   shouldUpdate = true
 }

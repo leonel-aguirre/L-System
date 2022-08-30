@@ -66,6 +66,8 @@ body {
   padding: 16px;
   margin-top: 16px;
   font-family: monospace;
+  max-height: 160px;
+  overflow-y: scroll;
 }
 
 .iterations-text {
@@ -74,4 +76,15 @@ body {
 
 .increase-iterations-button {
   margin-left: 8px;
+}
+
+.l-system-rendered-string-panel {
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 16px;
+  font-family: monospace;
+  white-space: normal;
+  max-height: 160px;
+  overflow-y: scroll;
 }
