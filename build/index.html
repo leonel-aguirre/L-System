@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>L-System</title>
+  <script defer src="./bundle.js"></script><link href="./main.css" rel="stylesheet"></head>
+  <body>
+    <div class="main-container">
+      <div class="grid-container">
+        <div class="config-panel">
+          <form>
+            <div class="input-wrapper">
+              <label for="currentLSystem">LSystem Selected: </label>
+              <select name="currentLSystem" id="currentLSystem"></select>
+            </div>
+
+            <pre class="l-system-information-panel" id="lSystemRawData"></pre>
+
+            <div class="input-wrapper">
+              <label for="lineLength">Line Length: </label>
+              <input
+                type="range"
+                name="lineLength"
+                id="lineLength"
+                step="1"
+                min="1"
+                max="30"
+                value="1"
+              />
+              <span id="lineLengthValue" class="line-length-text">1</span>
+            </div>
+
+            <div class="input-wrapper">
+              <label>Iterations: </label>
+              <span id="iterationsValue" class="iterations-text">1</span>
+              <button
+                id="decreaseIterations"
+                class="decrease-iterations-button"
+                type="button"
+              >
+                -
+              </button>
+              <button
+                id="increaseIterations"
+                class="increase-iterations-button"
+                type="button"
+              >
+                +
+              </button>
+            </div>
+
+            <div class="input-wrapper">
+              <label for="xOffset">X-Offset: </label>
+              <input
+                type="range"
+                name="xOffset"
+                id="xOffset"
+                step="1"
+                min="-500"
+                max="500"
+                value="0"
+              />
+              <span id="xOffsetValue" class="x-offset-text">0</span>
+            </div>
+
+            <div class="input-wrapper">
+              <label for="yOffset">Y-Offset: </label>
+              <input
+                type="range"
+                name="yOffset"
+                id="yOffset"
+                step="1"
+                min="-500"
+                max="500"
+                value="0"
+              />
+              <span id="yOffsetValue" class="y-offset-text">0</span>
+            </div>
+
+            <pre
+              class="l-system-rendered-string-panel"
+              id="lSystemRenderedString"
+            ></pre>
+          </form>
+        </div>
+        <div id="Canvas" class="canvas"></div>
+      </div>
+    </div>
+  </body>
+</html>
