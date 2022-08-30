@@ -1,5 +1,3 @@
-import { LINE_LENGTH } from "../constants"
-
 // variables : F G
 // constants : + −
 // start  : F−G−G
