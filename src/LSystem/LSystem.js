@@ -49,8 +49,8 @@ class LSystem {
    * @param {LSystem} lSystem The L-System to be used.
    * @param {String} patternIteration The pattern to be drew.
    */
-  static drawLSystemPattern(p, lSystem, patternIteration, config) {
-    const stream = lSystem.getIterationValue(patternIteration).split("")
+  static drawLSystemPattern(p, lSystem, config) {
+    const stream = lSystem.getIterationValue(config.iterationsAmount).split("")
 
     stream.forEach((character) => {
       const foundInstruction = lSystem.instructions.find(

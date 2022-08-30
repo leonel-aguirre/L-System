@@ -17,13 +17,19 @@ for (const key in Data) {
 const config = {
   lineLength: 10,
   currentLSystem: lSystemsSet[0],
+  iterationsAmount: 3,
 }
+
+let shouldUpdate = false
 
 const lineLengthInput = document.querySelector("#lineLength")
 const currentLSystemSelect = document.querySelector("#currentLSystem")
+const increaseIterationsButton = document.querySelector("#increaseIterations")
+const decreaseIterationsButton = document.querySelector("#decreaseIterations")
 
 const lineLengthValue = document.querySelector("#lineLengthValue")
 const rawDataValue = document.querySelector("#lSystemRawData")
+const iterationsValue = document.querySelector("#iterationsValue")
 
 let lSystem
 
@@ -42,6 +48,24 @@ currentLSystemSelect.addEventListener("change", ({ target }) => {
   updateUI()
 })
 
+increaseIterationsButton.addEventListener("click", () => {
+  const { iterationsAmount } = config
+
+  config.iterationsAmount =
+    iterationsAmount < 15 ? iterationsAmount + 1 : iterationsAmount
+
+  updateUI()
+})
+
+decreaseIterationsButton.addEventListener("click", () => {
+  const { iterationsAmount } = config
+
+  config.iterationsAmount =
+    iterationsAmount > 0 ? iterationsAmount - 1 : iterationsAmount
+
+  updateUI()
+})
+
 const setCurrentLSystem = () => {
   const { alphabet, initiator, rules, instructions } = config.currentLSystem
 
@@ -53,12 +77,15 @@ const updateUI = () => {
 
   lineLengthValue.textContent = config.lineLength
   lineLengthInput.value = config.lineLength
+  iterationsValue.textContent = config.iterationsAmount
 
   rawDataValue.textContent = JSON.stringify(
     { alphabet, initiator, rules },
     null,
     2
   )
+
+  shouldUpdate = true
 }
 
 const populateLSystemSelect = () => {
@@ -90,20 +117,20 @@ const sketch = (p) => {
 
     setCurrentLSystem()
     populateLSystemSelect()
+
     updateUI()
-
-    // const lSystemIteration = 3
-
-    // console.log(lSystem.getIterationValue(lSystemIteration))
   }
 
   // Draw loop.
   p.draw = () => {
-    p.background("#FFF")
+    if (shouldUpdate) {
+      shouldUpdate = false
 
-    p.translate(WIDTH / 2, HEIGHT / 2)
+      p.background("#FFF")
+      p.translate(WIDTH / 2, HEIGHT / 2)
 
-    LSystem.drawLSystemPattern(p, lSystem, 3, config)
+      LSystem.drawLSystemPattern(p, lSystem, config)
+    }
   }
 }
 

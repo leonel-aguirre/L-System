@@ -12,6 +12,13 @@
         <div class="config-panel">
           <form>
             <div class="input-wrapper">
+              <label for="currentLSystem">LSystem Selected: </label>
+              <select name="currentLSystem" id="currentLSystem"></select>
+            </div>
+
+            <pre class="l-system-information-panel" id="lSystemRawData"></pre>
+
+            <div class="input-wrapper">
               <label for="lineLength">Line Length: </label>
               <input
                 type="range"
@@ -22,14 +29,27 @@
                 max="30"
                 value="1"
               />
-              <span id="lineLengthValue">1</span>
-            </div>
-            <div class="input-wrapper">
-              <label for="currentLSystem">LSystem Selected: </label>
-              <select name="currentLSystem" id="currentLSystem"></select>
+              <span id="lineLengthValue" class="line-length-text">1</span>
             </div>
 
-            <pre class="l-system-information-panel" id="lSystemRawData"></pre>
+            <div class="input-wrapper">
+              <label>Iterations: </label>
+              <span id="iterationsValue" class="iterations-text">1</span>
+              <button
+                id="decreaseIterations"
+                class="decrease-iterations-button"
+                type="button"
+              >
+                -
+              </button>
+              <button
+                id="increaseIterations"
+                class="increase-iterations-button"
+                type="button"
+              >
+                +
+              </button>
+            </div>
           </form>
         </div>
         <div id="Canvas" class="canvas"></div>
