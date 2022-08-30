@@ -18,6 +18,8 @@ const config = {
   lineLength: 10,
   currentLSystem: lSystemsSet[0],
   iterationsAmount: 3,
+  xOffset: 0,
+  yOffset: 0,
 }
 
 let shouldUpdate = false
@@ -26,11 +28,15 @@ const lineLengthInput = document.querySelector("#lineLength")
 const currentLSystemSelect = document.querySelector("#currentLSystem")
 const increaseIterationsButton = document.querySelector("#increaseIterations")
 const decreaseIterationsButton = document.querySelector("#decreaseIterations")
+const xOffsetInput = document.querySelector("#xOffset")
+const yOffsetInput = document.querySelector("#yOffset")
 
 const lineLengthValue = document.querySelector("#lineLengthValue")
 const rawDataValue = document.querySelector("#lSystemRawData")
 const iterationsValue = document.querySelector("#iterationsValue")
 const renderedString = document.querySelector("#lSystemRenderedString")
+const xOffsetValue = document.querySelector("#xOffsetValue")
+const yOffsetValue = document.querySelector("#yOffsetValue")
 
 let lSystem
 
@@ -67,6 +73,18 @@ decreaseIterationsButton.addEventListener("click", () => {
   updateUI()
 })
 
+xOffsetInput.addEventListener("change", ({ target }) => {
+  config.xOffset = Number(target.value)
+
+  updateUI()
+})
+
+yOffsetInput.addEventListener("change", ({ target }) => {
+  config.yOffset = Number(target.value)
+
+  updateUI()
+})
+
 const setCurrentLSystem = () => {
   const { alphabet, initiator, rules, instructions } = config.currentLSystem
 
@@ -90,6 +108,9 @@ const updateUI = () => {
     config.iterationsAmount
   )}"`
 
+  xOffsetValue.textContent = config.xOffset
+  yOffsetValue.textContent = config.yOffset
+
   shouldUpdate = true
 }
 
@@ -111,13 +132,14 @@ const populateLSystemSelect = () => {
  * @param {p5} p p5 object reference.
  */
 const sketch = (p) => {
-  // Editable values.
-
   // Sketch setup.
   p.setup = () => {
+    const xTranslation = WIDTH / 2 + config.xOffset
+    const yTranslation = HEIGHT / 2 + config.yOffset
+
     let canvas = p.createCanvas(WIDTH, HEIGHT)
     canvas.parent("Canvas")
-    p.translate(WIDTH / 2, HEIGHT / 2)
+    p.translate(xTranslation, yTranslation)
     p.background("white")
 
     setCurrentLSystem()
@@ -131,8 +153,11 @@ const sketch = (p) => {
     if (shouldUpdate) {
       shouldUpdate = false
 
+      const xTranslation = WIDTH / 2 + config.xOffset
+      const yTranslation = HEIGHT / 2 + config.yOffset
+
       p.background("#FFF")
-      p.translate(WIDTH / 2, HEIGHT / 2)
+      p.translate(xTranslation, yTranslation)
 
       LSystem.drawLSystemPattern(p, lSystem, config)
     }

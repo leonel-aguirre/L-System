@@ -45,7 +45,9 @@ body {
   margin-right: 16px;
 }
 
-.line-length-text {
+.line-length-text,
+.x-offset-text,
+.y-offset-text {
   margin-left: 16px;
 }
 
