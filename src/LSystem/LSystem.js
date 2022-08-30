@@ -43,6 +43,28 @@ class LSystem {
   }
 
   /**
+   * Builds the string for the given iteration amount and returns it (Recursive approach).
+   *
+   * @param {Number} n The amount of iterations.
+   * @returns {String} A string containing the concatenation for the given amount n.
+   */
+  // getIterationValue(n) {
+  //   if (n === 0) {
+  //     return this.initiator
+  //   } else {
+  //     let characters = this.getIterationValue(n - 1).split("")
+
+  //     return characters.reduce((current, nextCharacter) => {
+  //       const matchingRule = this.rules.find(
+  //         (rule) => rule.from === nextCharacter
+  //       )
+
+  //       return (current += matchingRule?.to || nextCharacter)
+  //     }, "")
+  //   }
+  // }
+
+  /**
    * Follows the drawing instructions based on both the given L-System's set of instructions and the pattern
    *
    * @param {p5} p A reference to the p5 object.
